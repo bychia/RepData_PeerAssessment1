@@ -60,7 +60,7 @@ Total missing values in dataset: `r nrow(incompleteData)`.
 Total complete values in dataset: `r nrow(completeData)`.
 
 
-```{r processMissingValues, echo=TRUE}
+```{r processMissingValues1, echo=TRUE}
 # Plot 2 charts: original and modified with replaced missing values
 par(mfrow=c(1,2))
 
@@ -79,6 +79,7 @@ for(i in 1:nrow(dat)){
   if(is.na(dat[i,]$step))
     dat[i,]$steps <- dailyActivity[dailyActivity$interval==(dat[i,]$interval),]$steps
 }
+
 newDailyData <-  aggregate(steps~date, data=dat, sum)
 newDailyMeanStep <- mean(newDailyData$steps)
 newDailyMedianStep <- median(newDailyData$steps)
@@ -89,6 +90,8 @@ abline(v= newDailyMedianStep, lty=3, col="red")
 text(newDailyMeanStep,22,labels=paste("mean:",round(newDailyMeanStep)), pos=3, col="blue")
 text(newDailyMedianStep,24,labels=paste("medum:",round(newDailyMedianStep)), pos=3, col="red")
 ``` 
+
+We use the ***mean values*** from the 5 min intervals to replace the corresponding NA values in the datasets.  
 
 The **Mean** total number of steps taken per day is **10766**.  
 The **Median** total number of steps taken per day is **10765**.  
@@ -124,3 +127,5 @@ newActivityData <- aggregate(steps~interval+dayType, dat, mean)
 plot(newActivityData[newActivityData$dayType=="weekday",]$steps , type="l", col="brown", main="Weekday", xlab="intervals", ylab="Steps", ylim=c(1,250))
 plot(newActivityData[newActivityData$dayType=="weekend",]$steps, type="l", col="brown", main="Weekend", xlab="intervals", ylab="Steps", ylim=c(1,250) )
 ```
+
+The above plot shows a panel plot using R base library.  

@@ -97,6 +97,7 @@ for(i in 1:nrow(dat)){
   if(is.na(dat[i,]$step))
     dat[i,]$steps <- dailyActivity[dailyActivity$interval==(dat[i,]$interval),]$steps
 }
+
 newDailyData <-  aggregate(steps~date, data=dat, sum)
 newDailyMeanStep <- mean(newDailyData$steps)
 newDailyMedianStep <- median(newDailyData$steps)
@@ -108,7 +109,9 @@ text(newDailyMeanStep,22,labels=paste("mean:",round(newDailyMeanStep)), pos=3, c
 text(newDailyMedianStep,24,labels=paste("medum:",round(newDailyMedianStep)), pos=3, col="red")
 ```
 
-![](./PA1_template_files/figure-html/processMissingValues-1.png) 
+![](./PA1_template_files/figure-html/processMissingValues1-1.png) 
+
+We use the ***mean values*** from the 5 min intervals to replace the corresponding NA values in the datasets.  
 
 The **Mean** total number of steps taken per day is **10766**.  
 The **Median** total number of steps taken per day is **10765**.  
@@ -173,3 +176,5 @@ plot(newActivityData[newActivityData$dayType=="weekend",]$steps, type="l", col="
 ```
 
 ![](./PA1_template_files/figure-html/unnamed-chunk-1-1.png) 
+
+The above plot shows a panel plot using R base library.  
